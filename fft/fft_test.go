@@ -20,7 +20,6 @@ import (
 	"fmt"
 	"math"
 	"math/cmplx"
-	"runtime"
 	"testing"
 
 	"github.com/madelynnblue/go-dsp/dsputils"
@@ -260,10 +259,6 @@ func TestFFTMulti(t *testing.T) {
 
 // run with: go test -test.bench="."
 func BenchmarkFFT(b *testing.B) {
-	b.StopTimer()
-
-	runtime.GOMAXPROCS(runtime.NumCPU())
-
 	N := 1 << 20
 	a := make([]complex128, N)
 	for i := 0; i < N; i++ {
@@ -272,9 +267,7 @@ func BenchmarkFFT(b *testing.B) {
 
 	EnsureRadix2Factors(N)
 
-	b.StartTimer()
-
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		FFT(a)
 	}
 }
