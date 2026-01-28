@@ -27,3 +27,9 @@ func main() {
         fmt.Println(fft.FFTReal([]float64 {1, 2, 3}))
 }
 ```
+
+## SIMD
+
+Go 1.26 has a new [`simd/archsimd`](https://go.dev/doc/go1.26#simd) package.
+If this package is built with `GOEXPERIMENT=simd`, an experimental SIMD implementation is used.
+It may not be faster.

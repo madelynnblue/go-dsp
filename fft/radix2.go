@@ -76,7 +76,8 @@ type fft_work struct {
 	start, end int
 }
 
-// radix2FFT returns the FFT calculated using the radix-2 DIT Cooley-Tukey algorithm.
+// radix2FFT returns the FFT calculated using the radix-2 DIT Cooley-Tukey algorithm
+// with SIMD optimization.
 func radix2FFT(x []complex128) []complex128 {
 	lx := len(x)
 	factors := getRadix2Factors(lx)
@@ -86,7 +87,7 @@ func radix2FFT(x []complex128) []complex128 {
 
 	var blocks, stage, s_2 int
 
-	jobs := make(chan *fft_work, lx)
+	jobs := make(chan fft_work, lx)
 	wg := sync.WaitGroup{}
 
 	num_workers := worker_pool_size
@@ -94,37 +95,15 @@ func radix2FFT(x []complex128) []complex128 {
 		num_workers = runtime.GOMAXPROCS(0)
 	}
 
-	idx_diff := lx / num_workers
-	if idx_diff < 2 {
-		idx_diff = 2
-	}
-
-	worker := func() {
-		for work := range jobs {
-			for nb := work.start; nb < work.end; nb += stage {
-				if stage != 2 {
-					for j := 0; j < s_2; j++ {
-						idx := j + nb
-						idx2 := idx + s_2
-						ridx := r[idx]
-						w_n := r[idx2] * factors[blocks*j]
-						t[idx] = ridx + w_n
-						t[idx2] = ridx - w_n
-					}
-				} else {
-					n1 := nb + 1
-					rn := r[nb]
-					rn1 := r[n1]
-					t[nb] = rn + rn1
-					t[n1] = rn - rn1
-				}
-			}
-			wg.Done()
-		}
-	}
+	idx_diff := max(lx/num_workers, 2)
 
 	for range num_workers {
-		go worker()
+		go func() {
+			for work := range jobs {
+				radix2Worker(lx, work.start, work.end, stage, s_2, blocks, r, t, factors)
+				wg.Done()
+			}
+		}()
 	}
 	defer close(jobs)
 
@@ -135,7 +114,7 @@ func radix2FFT(x []complex128) []complex128 {
 		for start, end := 0, stage; ; {
 			if end-start >= idx_diff || end == lx {
 				wg.Add(1)
-				jobs <- &fft_work{start, end}
+				jobs <- fft_work{start, end}
 
 				if end == lx {
 					break
@@ -151,6 +130,32 @@ func radix2FFT(x []complex128) []complex128 {
 	}
 
 	return r
+}
+
+func radix2WorkerScalar(
+	_lx int, // Needed for SIMD.
+	start, end int,
+	stage, s_2, blocks int,
+	r, t, factors []complex128,
+) {
+	for nb := start; nb < end; nb += stage {
+		if stage != 2 {
+			for j := 0; j < s_2; j++ {
+				idx := j + nb
+				idx2 := idx + s_2
+				ridx := r[idx]
+				w_n := r[idx2] * factors[blocks*j]
+				t[idx] = ridx + w_n
+				t[idx2] = ridx - w_n
+			}
+		} else {
+			n1 := nb + 1
+			rn := r[nb]
+			rn1 := r[n1]
+			t[nb] = rn + rn1
+			t[n1] = rn - rn1
+		}
+	}
 }
 
 // reorderData returns a copy of x reordered for the DFT.
