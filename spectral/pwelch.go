@@ -17,7 +17,6 @@
 package spectral
 
 import (
-	"math"
 	"math/cmplx"
 
 	"github.com/madelynnblue/go-dsp/dsputils"
@@ -124,7 +123,7 @@ func Pwelch(x []float64, Fs float64, o *PwelchOptions) (Pxx, freqs []float64) {
 	w := wf(nfft)
 	var norm float64
 	for _, x := range w {
-		norm += math.Pow(x, 2)
+		norm += x * x
 	}
 
 	if enable_scaling {

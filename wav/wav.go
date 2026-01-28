@@ -25,7 +25,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"math"
 	"time"
 )
@@ -103,7 +102,10 @@ func New(r io.Reader) (*Wav, error) {
 			w.r = io.LimitReader(r, int64(sz))
 			return &w, nil
 		default:
-			io.CopyN(ioutil.Discard, r, int64(sz))
+			_, err := io.CopyN(io.Discard, r, int64(sz))
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 }

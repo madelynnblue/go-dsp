@@ -123,7 +123,7 @@ func radix2FFT(x []complex128) []complex128 {
 		}
 	}
 
-	for i := 0; i < num_workers; i++ {
+	for range num_workers {
 		go worker()
 	}
 	defer close(jobs)

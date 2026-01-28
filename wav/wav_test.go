@@ -93,13 +93,16 @@ func TestWav(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		defer f.Close()
 		w, err := New(f)
 		if err != nil {
 			t.Fatalf("%v: %v", name, err)
 		}
 		if !eq(*w, wt.w) {
 			t.Errorf("wavs not equal: %v\ngot: %v\nexpected: %v", name, w, &wt.w)
+		}
+		err = f.Close()
+		if err != nil {
+			t.Fatal(err)
 		}
 	}
 }
