@@ -1,8 +1,6 @@
-# GO-DSP
+# go-dsp
 
-go-dsp is a digital signal processing package for the [Go programming language](http://golang.org).
-
-## Packages
+Digital signal processing packages.
 
 * **[dsputils](http://godoc.org/github.com/madelynnblue/go-dsp/dsputils)** - utilities and data structures for DSP
 * **[fft](http://godoc.org/github.com/madelynnblue/go-dsp/fft)** - fast Fourier transform

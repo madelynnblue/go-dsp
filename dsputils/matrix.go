@@ -25,15 +25,16 @@ type Matrix struct {
 
 // MakeMatrix returns a new Matrix populated with x having dimensions dims.
 // For example, to create a 3-dimensional Matrix with 2 components, 3 rows, and 4 columns:
-//   MakeMatrix([]complex128 {
-//     1, 2, 3, 4,
-//     5, 6, 7, 8,
-//     9, 0, 1, 2,
 //
-//     3, 4, 5, 6,
-//     7, 8, 9, 0,
-//     4, 3, 2, 1},
-//   []int {2, 3, 4})
+//	MakeMatrix([]complex128 {
+//	  1, 2, 3, 4,
+//	  5, 6, 7, 8,
+//	  9, 0, 1, 2,
+//
+//	  3, 4, 5, 6,
+//	  7, 8, 9, 0,
+//	  4, 3, 2, 1},
+//	[]int {2, 3, 4})
 func MakeMatrix(x []complex128, dims []int) *Matrix {
 	length := 1
 	offsets := make([]int, len(dims))
@@ -150,9 +151,10 @@ func (m *Matrix) Dimensions() []int {
 // Dim returns the array of any given index of the Matrix.
 // Exactly one value in dims must be -1. This is the array dimension returned.
 // For example, using the Matrix documented in MakeMatrix:
-//   m.Dim([]int {1, 0, -1}) = []complex128 {3, 4, 5, 6}
-//   m.Dim([]int {0, -1, 2}) = []complex128 {3, 7, 1}
-//   m.Dim([]int {-1, 1, 3}) = []complex128 {8, 0}
+//
+//	m.Dim([]int {1, 0, -1}) = []complex128 {3, 4, 5, 6}
+//	m.Dim([]int {0, -1, 2}) = []complex128 {3, 7, 1}
+//	m.Dim([]int {-1, 1, 3}) = []complex128 {8, 0}
 func (s *Matrix) Dim(dims []int) []complex128 {
 	inds := s.indexes(dims)
 	r := make([]complex128, len(inds))
