@@ -1,5 +1,7 @@
 # go-dsp
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/madelynnblue/go-dsp.svg)](https://pkg.go.dev/github.com/madelynnblue/go-dsp)
+
 Digital signal processing packages.
 
 * **[dsputils](http://godoc.org/github.com/madelynnblue/go-dsp/dsputils)** - utilities and data structures for DSP
