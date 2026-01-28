@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Matt Jibson <matt.jibson@gmail.com>
+ * Copyright (c) 2011 Madelynn Blue <blue.mlynn@gmail.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -18,7 +18,7 @@
 package fft
 
 import (
-	"github.com/mjibson/go-dsp/dsputils"
+	"github.com/madelynnblue/go-dsp/dsputils"
 )
 
 // FFTReal returns the forward FFT of the real-valued slice.

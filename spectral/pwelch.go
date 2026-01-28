@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 Matt Jibson <matt.jibson@gmail.com>
+ * Copyright (c) 2012 Madelynn Blue <blue.mlynn@gmail.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -20,9 +20,9 @@ import (
 	"math"
 	"math/cmplx"
 
-	"github.com/mjibson/go-dsp/dsputils"
-	"github.com/mjibson/go-dsp/fft"
-	"github.com/mjibson/go-dsp/window"
+	"github.com/madelynnblue/go-dsp/dsputils"
+	"github.com/madelynnblue/go-dsp/fft"
+	"github.com/madelynnblue/go-dsp/window"
 )
 
 type PwelchOptions struct {

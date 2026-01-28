@@ -4,15 +4,15 @@ go-dsp is a digital signal processing package for the [Go programming language](
 
 ## Packages
 
-* **[dsputils](http://godoc.org/github.com/mjibson/go-dsp/dsputils)** - utilities and data structures for DSP
-* **[fft](http://godoc.org/github.com/mjibson/go-dsp/fft)** - fast Fourier transform
-* **[spectral](http://godoc.org/github.com/mjibson/go-dsp/spectral)** - power spectral density functions (e.g., Pwelch)
-* **[wav](http://godoc.org/github.com/mjibson/go-dsp/wav)** - wav file reader functions
-* **[window](http://godoc.org/github.com/mjibson/go-dsp/window)** - window functions (e.g., Hamming, Hann, Bartlett)
+* **[dsputils](http://godoc.org/github.com/madelynnblue/go-dsp/dsputils)** - utilities and data structures for DSP
+* **[fft](http://godoc.org/github.com/madelynnblue/go-dsp/fft)** - fast Fourier transform
+* **[spectral](http://godoc.org/github.com/madelynnblue/go-dsp/spectral)** - power spectral density functions (e.g., Pwelch)
+* **[wav](http://godoc.org/github.com/madelynnblue/go-dsp/wav)** - wav file reader functions
+* **[window](http://godoc.org/github.com/madelynnblue/go-dsp/window)** - window functions (e.g., Hamming, Hann, Bartlett)
 
 ## Installation and Usage
 
-```$ go get github.com/mjibson/go-dsp/fft```
+```$ go get github.com/madelynnblue/go-dsp/fft```
 
 ```
 package main
@@ -20,7 +20,7 @@ package main
 import (
         "fmt"
         
-        "github.com/mjibson/go-dsp/fft"
+        "github.com/madelynnblue/go-dsp/fft"
 )
 
 func main() {
